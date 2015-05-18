@@ -12,7 +12,7 @@ GAME_VERSION=$1
 GAME_DIR=$GAME_NAME-$GAME_VERSION
 RELEASE_FILE_NAME=$GAME_DIR.zip
 BUILD_DIR=release-package-$GAME_NAME-$GAME_VERSION
-RELEASE_FILE_DIR=src/main/desktop_release_files
+RELEASE_FILE_DIR=src/main/release_files
 
 echo "Building release package $RELEASE_FILE_NAME:"
 
