@@ -3,7 +3,7 @@ package org.asteria;
 import com.beust.jcommander.Parameter;
 
 /**
- *
+ * Parameters passed to Main when the program was started.
  */
 public class CommandLineParameters {
 
@@ -16,6 +16,9 @@ public class CommandLineParameters {
     @Parameter(names = {"-h", "--help"}, description = "Print this help message.", help = true)
     private boolean help = false;
 
+    @Parameter(names = {"--update-textures"}, description = "Updates the texture atlas from source images.  Use during development.", hidden = true)
+    private boolean updateTextures = false;
+
     public boolean isServer() {
         return server;
     }
@@ -26,5 +29,9 @@ public class CommandLineParameters {
 
     public boolean isHelpRequested() {
         return help;
+    }
+
+    public boolean isUpdateTextures() {
+        return updateTextures;
     }
 }
