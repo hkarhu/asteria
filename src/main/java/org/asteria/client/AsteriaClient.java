@@ -5,6 +5,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import org.asteria.Main;
+import org.asteria.client.screens.GameScreen;
+import org.asteria.client.screens.LoginScreen;
+import org.asteria.client.screens.ScreenBase;
 
 /**
  * Main client class, directs screen changes and handles client initialization

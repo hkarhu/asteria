@@ -1,4 +1,4 @@
-package org.asteria.client;
+package org.asteria.client.screens;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -59,7 +59,7 @@ public final class LoginScreen extends ScreenBase {
         rootUi.add(usernameField);
 
         rootUi.row().padBottom(GAP);
-        rootUi.add(new Label("Password", skin)).padRight(GAP);;
+        rootUi.add(new Label("Password", skin)).padRight(GAP);
         rootUi.add(passwordField);
 
         rootUi.row();
@@ -71,7 +71,7 @@ public final class LoginScreen extends ScreenBase {
 
         // IMPLEMENT: Call login with network code
 
-        System.out.println("Logging in with username " + username + " and pass " + password);
+        System.out.println("Logging in with username '" + username + "' and pass '" + password + "'");
     }
 
 

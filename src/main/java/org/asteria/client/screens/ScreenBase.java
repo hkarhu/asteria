@@ -1,4 +1,4 @@
-package org.asteria.client;
+package org.asteria.client.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
@@ -25,7 +25,12 @@ public abstract class ScreenBase extends ScreenAdapter {
 
     private Table rootUi;
 
-    protected final void create(Skin skin, TextureAtlas textureAtlas) {
+    /**
+     * Called once to allow creating the scenegraph.
+     * @param skin loaded default skin.
+     * @param textureAtlas loaded textures.
+     */
+    public final void create(Skin skin, TextureAtlas textureAtlas) {
         // Check and store provided skin and atlas parameters
         notNull(skin, "skin");
         notNull(textureAtlas, "textureAtlas");
