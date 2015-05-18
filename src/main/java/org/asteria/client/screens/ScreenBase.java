@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import org.asteria.client.AsteriaClient;
 
 import static org.flowutils.Check.notNull;
 
@@ -24,16 +25,19 @@ public abstract class ScreenBase extends ScreenAdapter {
     private TextureAtlas textureAtlas;
 
     private Table rootUi;
+    private AsteriaClient asteriaClient;
 
     /**
      * Called once to allow creating the scenegraph.
      * @param skin loaded default skin.
      * @param textureAtlas loaded textures.
      */
-    public final void create(Skin skin, TextureAtlas textureAtlas) {
-        // Check and store provided skin and atlas parameters
+    public final void create(AsteriaClient asteriaClient, Skin skin, TextureAtlas textureAtlas) {
+        // Check and store provided parameters
+        notNull(asteriaClient, "asteriaClient");
         notNull(skin, "skin");
         notNull(textureAtlas, "textureAtlas");
+        this.asteriaClient = asteriaClient;
         this.skin = skin;
         this.textureAtlas = textureAtlas;
 
@@ -80,6 +84,13 @@ public abstract class ScreenBase extends ScreenAdapter {
     @Override final public void dispose() {
         stage.dispose();
         onDispose();
+    }
+
+    /**
+     * @return the game client class, can be used e.g. for switching the current screen.
+     */
+    public AsteriaClient getAsteriaClient() {
+        return asteriaClient;
     }
 
     /**

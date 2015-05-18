@@ -64,7 +64,7 @@ public final class AsteriaClient extends Game {
     }
 
     private <T extends ScreenBase> T addScreen(final T screen) {
-        screen.create(skin, textureAtlas);
+        screen.create(this, skin, textureAtlas);
         return screen;
     }
 
