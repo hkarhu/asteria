@@ -61,6 +61,9 @@ public class Main {
         }
     }
 
+    /**
+     * Ensures the parameter is in the range, if not, quits the program with error code.
+     */
     private static void verifyParameterInRange(final String parameterName,
                                                final int value,
                                                final int min,
@@ -72,6 +75,11 @@ public class Main {
     }
 
 
+    /**
+     * This will load textures from the asset-sources/textures directory and merge them into bigger textures
+     * to the assets/textures directory, along with an atlas file that contains the coordinates of the subtextures
+     * inside the new combined texture.
+     */
     private static void packTextures() {
         LogUtils.getLogger().info("Updating textures.");
 
