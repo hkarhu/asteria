@@ -29,7 +29,7 @@ Target platform:
 Used tech:
  * Java version 7 (balance between modern features and bugs fixed, and availability on user machines)
  * Maven for builds
- * Issues maintained in github issue database
+ * Issues maintained in GitHub issue database
 
 Used libraries:
  * LibGdx for Open GL access, sound, controller integration, etc.
@@ -48,8 +48,8 @@ Small tasks maintained in code using the following tags
  * IDEA: Feature or improvement idea, idea for optimization, etc.  Can be removed when irrelevant or deemed not implementable / worth the time to implement.
 
 Communication channels:
- * IRC: #asteria-spacewar on irc.freenode.org (asteria was already reserved)
- * Github: https://github.com/irah-000/asteria
+ * IRC: #asteria-spacewar on irc.freenode.org
+ * GitHub: https://github.com/irah-000/asteria
 
 
 Roadmap
@@ -73,11 +73,11 @@ Features may be removed or moved between versions.
      * Disconnected notification message to the client when it got disconnected
   * Server can store account and authentication information in memory for now.
   * NOTE: We'll need at least one chat channel for each faction, so we can as well add preliminary support for it now.
-    Initially the players could just be autojoined to the "universal" channel, later we can add commands to join
+    Initially the players could just be auto-joined to the "universal" channel, later we can add commands to join
     and part different channels, and a list of the channels that are available to a specific user.
     
 * Version 0.2: Visible Universe
-  * Entities are visible in a 3D universum, and move in simple orbits or are stationary
+  * Entities are visible in a 3D universe, and move in simple orbits or are stationary
   * Client shows the entities (and overlays the chat screen on top of the view)
   * Command & notification messages:
     * EntityPerceptionUpdate(list of visible entity updates) notification message from server to client, with updates to visible entities

@@ -114,3 +114,6 @@ dependency-reduced-pom.xml
 buildNumber.properties
 
 
+# Release builds
+release-package*/
+asteria-*.zip
