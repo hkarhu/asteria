@@ -53,6 +53,7 @@ public final class LoginScreen extends ScreenBase {
         passwordField.addListener(enterListener);
 
         // Add the UI components together and layout the UI
+        // See https://github.com/libgdx/libgdx/wiki/Table for documentation on laying out UI components with Table.
         rootUi.row().padBottom(GAP);
         rootUi.add(new Label("Username", skin)).padRight(GAP);
         rootUi.add(usernameField);
