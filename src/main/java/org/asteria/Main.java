@@ -29,6 +29,7 @@ public class Main {
     private static final int MAX_PORT = 65535;
 
     public static void main(String[] args) {
+        // Parse command line parameters with JCommander, the parameters will be saved in a CommandLineParameters instance.
         final CommandLineParameters commandLineParameters = new CommandLineParameters();
         final JCommander jCommander = new JCommander(commandLineParameters, args);
 
