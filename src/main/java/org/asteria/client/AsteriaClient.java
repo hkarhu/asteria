@@ -4,9 +4,11 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+
 import org.asteria.Main;
 import org.asteria.client.screens.GameScreen;
 import org.asteria.client.screens.LoginScreen;
+import org.asteria.client.screens.RegisterScreen;
 import org.asteria.client.screens.ScreenBase;
 
 /**
@@ -25,6 +27,7 @@ public final class AsteriaClient extends Game {
 
     private LoginScreen loginScreen;
     private GameScreen gameScreen;
+    private RegisterScreen registerScreen;
     private TextureAtlas textureAtlas;
 
     public AsteriaClient(int port) {
@@ -40,6 +43,7 @@ public final class AsteriaClient extends Game {
         skin = new Skin(Gdx.files.internal(DEFAULT_SKIN_PATH), new TextureAtlas(DEFAULT_SKIN_ATLAS_PATH));
 
         // Create the screens that we have in the game
+        registerScreen = addScreen(new RegisterScreen());
         loginScreen = addScreen(new LoginScreen());
         gameScreen = addScreen(new GameScreen());
 

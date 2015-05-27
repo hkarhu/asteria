@@ -1,24 +1,28 @@
 package org.asteria.client.screens;
 
+import static org.flowutils.Check.notNull;
+
+import org.asteria.client.AsteriaClient;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import org.asteria.client.AsteriaClient;
-
-import static org.flowutils.Check.notNull;
-
+import org.flowutils.time.RealTime;
 /**
  * Provides a 2D scenegraph to work with
  */
 public abstract class ScreenBase extends ScreenAdapter {
 
-    public static final int SMALL_GAP = 2;
-    public static final int GAP = 5;
-    public static final int LARGE_GAP = 10;
+    public static final int SMALL_GAP = 8;
+    public static final int GAP = 10;
+    public static final int LARGE_GAP = 24;
+
+	protected BitmapFont font;
 
     private Stage stage;
     private Skin skin;
@@ -26,6 +30,8 @@ public abstract class ScreenBase extends ScreenAdapter {
 
     private Table rootUi;
     private AsteriaClient asteriaClient;
+    
+    private RealTime realTime;
 
     /**
      * Called once to allow creating the scenegraph.
@@ -41,6 +47,10 @@ public abstract class ScreenBase extends ScreenAdapter {
         this.skin = skin;
         this.textureAtlas = textureAtlas;
 
+        this.font = new BitmapFont(); //Default font used for now
+        
+        this.realTime = new RealTime();
+        
         // Create 2D Scenegraph
         stage = new Stage();
 
@@ -63,7 +73,8 @@ public abstract class ScreenBase extends ScreenAdapter {
         // Render scenegraph
         stage.draw();
 
-        onRender();
+        onRender(realTime);
+        realTime.nextStep();
     }
 
     @Override final public void show() {
@@ -129,12 +140,8 @@ public abstract class ScreenBase extends ScreenAdapter {
      */
     protected abstract void onCreate(Skin skin, TextureAtlas textureAtlas, Stage stage, Table rootUi);
 
-    protected void onRender() {
-    }
-    protected void onVisibilityChanged(boolean screenVisible) {
-    }
-    protected void onResize(int width, int height) {
-    }
-    protected void onDispose() {
-    }
+    protected void onRender(RealTime realTime) {}
+    protected void onVisibilityChanged(boolean screenVisible) {}
+    protected void onResize(int width, int height) {}
+    protected void onDispose() {}
 }
