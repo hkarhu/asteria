@@ -63,7 +63,7 @@
         <dependency>
             <groupId>org.entityflow</groupId>
             <artifactId>entityflow</artifactId>
-            <version>0.7.3</version>
+            <version>0.7.4</version>
         </dependency>
 
         <!-- Utility library -->
@@ -71,6 +71,13 @@
             <groupId>org.flowutils</groupId>
             <artifactId>flowutils</artifactId>
             <version>0.1.64</version>
+        </dependency>
+
+        <!-- High level networking -->
+        <dependency>
+            <groupId>org.messageduct</groupId>
+            <artifactId>messageduct</artifactId>
+            <version>0.1.0</version>
         </dependency>
 
         <!-- Unit testing -->
@@ -95,6 +102,12 @@
             <version>1.48</version>
         </dependency>
 
+        <!-- For network communication -->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>4.0.28.Final</version>
+        </dependency>
 
     </dependencies>
 

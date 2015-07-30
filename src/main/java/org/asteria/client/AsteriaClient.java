@@ -10,6 +10,8 @@ import org.asteria.client.screens.GameScreen;
 import org.asteria.client.screens.LoginScreen;
 import org.asteria.client.screens.RegisterScreen;
 import org.asteria.client.screens.ScreenBase;
+import org.messageduct.client.ClientNetworking;
+import org.messageduct.client.netty.NettyClientNetworking;
 
 /**
  * Main client class, directs screen changes and handles client initialization
@@ -30,6 +32,8 @@ public final class AsteriaClient extends Game {
     private RegisterScreen registerScreen;
     private TextureAtlas textureAtlas;
 
+    private ClientNetworking clientNetworking = new NettyClientNetworking();
+
     public AsteriaClient(int port) {
         setPort(port);
     }
@@ -43,8 +47,8 @@ public final class AsteriaClient extends Game {
         skin = new Skin(Gdx.files.internal(DEFAULT_SKIN_PATH), new TextureAtlas(DEFAULT_SKIN_ATLAS_PATH));
 
         // Create the screens that we have in the game
-        registerScreen = addScreen(new RegisterScreen());
-        loginScreen = addScreen(new LoginScreen());
+        registerScreen = addScreen(new RegisterScreen(clientNetworking));
+        loginScreen = addScreen(new LoginScreen(clientNetworking));
         gameScreen = addScreen(new GameScreen());
 
         // Switch to login screen

@@ -4,13 +4,15 @@ package org.asteria;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import com.beust.jcommander.JCommander;
 import org.asteria.desktop.DesktopClient;
-import org.asteria.server.Server;
+import org.asteria.server.AsteriaServer;
 import org.flowutils.LogUtils;
 
 /**
  * Main entrypoint for both the server and desktop client.
  */
 public class Main {
+
+    // TODO: Move constants to CommonSettings.
 
     public static final String GAME_NAME = "Asteria";
     public static final String GAME_DESCRIPTION = "Co-operative Multiplayer Space Warfare Simulator";
@@ -25,8 +27,6 @@ public class Main {
     public static final String TEXTURE_ATLAS_NAME = "TextureAtlas";
 
     private static final int MAX_TEXTURE_SIZE = 512;
-    private static final int MIN_PORT = 1024;
-    private static final int MAX_PORT = 65535;
 
     public static void main(String[] args) {
         // Parse command line parameters with JCommander, the parameters will be saved in a CommandLineParameters instance.
@@ -44,7 +44,7 @@ public class Main {
         }
 
         // Check parameters
-        verifyParameterInRange("The port", commandLineParameters.getPort(), MIN_PORT, MAX_PORT);
+        verifyParameterInRange("The port", commandLineParameters.getPort(), CommonSettings.MIN_PORT, CommonSettings.MAX_PORT);
 
         // Regenerate textures if requested
         if (commandLineParameters.isUpdateTextures()) {
@@ -53,7 +53,7 @@ public class Main {
 
         if (commandLineParameters.isServer()) {
             // Start server
-            Server.start(commandLineParameters.getPort());
+            AsteriaServer.start(commandLineParameters.getPort());
         }
         else {
             // Start desktop client

@@ -1,5 +1,6 @@
 package org.asteria.client.screens;
 
+import org.asteria.CommonSettings;
 import org.flowutils.time.RealTime;
 import org.lwjgl.opengl.GL11;
 
@@ -11,11 +12,21 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import org.messageduct.client.ClientNetworking;
+
+import static org.flowutils.Check.notNull;
 
 /**
  * Screen for logging into a game server
  */
 public final class LoginScreen extends ScreenBase {
+
+    private final ClientNetworking clientNetworking;
+
+    public LoginScreen(ClientNetworking clientNetworking) {
+        notNull(clientNetworking, "clientNetworking");
+        this.clientNetworking = clientNetworking;
+    }
 
     @Override protected void onCreate(Skin skin, TextureAtlas textureAtlas, Stage stage, Table rootUi) {
 
@@ -39,6 +50,9 @@ public final class LoginScreen extends ScreenBase {
         registerButton.addListener(new ClickListener() {
             @Override public void clicked(InputEvent event, float x, float y) {
             	//swapToRegister();
+
+                // DEBUG: Quick hack to register using the username and password typed into the login fields
+                registerUser(usernameField.getText(), passwordField.getText(), null);
             }
         });
 
@@ -95,10 +109,24 @@ public final class LoginScreen extends ScreenBase {
     };
 
     private boolean loginToServer(String username, String password) {
-
-        // IMPLEMENT: Call login with network code
         System.out.println("Logging in with username '" + username + "' and pass '" + password + "'");
-		return false;
+
+        // LATER: Get server info from a list of stored servers, or a new one entered by the user
+        clientNetworking.connect(CommonSettings.NETWORK_CONFIG, CommonSettings.SERVER_INFO);
+        clientNetworking.login(username, password.toCharArray());
+
+		return true;
+    }
+
+
+    private boolean registerUser(String username, String password, String email) {
+        System.out.println("Registering '" + username + "' pass: '" + password + "'" + "' email: '" + email + "'");
+
+        // LATER: Connect should happen earlier than register or login
+        clientNetworking.connect(CommonSettings.NETWORK_CONFIG, CommonSettings.SERVER_INFO);
+        clientNetworking.createAccount(username, password.toCharArray());
+
+        return true;
     }
 
 

@@ -7,11 +7,22 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import org.asteria.CommonSettings;
+import org.messageduct.client.ClientNetworking;
+
+import static org.flowutils.Check.notNull;
 
 /**
  * Screen for logging into a game server
  */
 public final class RegisterScreen extends ScreenBase {
+
+    private final ClientNetworking clientNetworking;
+
+    public RegisterScreen(ClientNetworking clientNetworking) {
+        notNull(clientNetworking, "clientNetworking");
+        this.clientNetworking = clientNetworking;
+    }
 
     @Override protected void onCreate(Skin skin, TextureAtlas textureAtlas, Stage stage, Table rootUi) {
     	
@@ -76,9 +87,13 @@ public final class RegisterScreen extends ScreenBase {
     }
 
 	private boolean registerUser(String username, String password, String email) {
-	    // IMPLEMENT: Call register with network code
 	    System.out.println("Registering '" + username + "' pass: '" + password + "'" + "' email: '" + email + "'");
-		return false;
+
+        // LATER: Connect should happen earlier than register or login
+        clientNetworking.connect(CommonSettings.NETWORK_CONFIG, CommonSettings.SERVER_INFO);
+        clientNetworking.createAccount(username, password.toCharArray());
+
+		return true;
 	}
 
 
