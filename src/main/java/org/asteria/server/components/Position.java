@@ -8,6 +8,9 @@ import org.entityflow.component.ComponentBase;
  */
 public final class Position extends ComponentBase {
 
-    public Vec3d pos = new Vec3d();
+    /**
+     * Position of the entity in the current system.
+     */
+    public final Vec3d pos = new Vec3d();
 
 }
