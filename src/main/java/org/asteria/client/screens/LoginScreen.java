@@ -1,6 +1,7 @@
 package org.asteria.client.screens;
 
 import org.asteria.CommonSettings;
+import org.asteria.client.services.SpeechService;
 import org.flowutils.time.RealTime;
 import org.lwjgl.opengl.GL11;
 
@@ -12,7 +13,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import org.messageduct.account.messages.AccountErrorMessage;
+import org.messageduct.account.messages.CreateAccountSuccessMessage;
+import org.messageduct.account.messages.LoginSuccessMessage;
 import org.messageduct.client.ClientNetworking;
+import org.messageduct.client.ServerListenerAdapter;
 
 import static org.flowutils.Check.notNull;
 
@@ -22,15 +27,45 @@ import static org.flowutils.Check.notNull;
 public final class LoginScreen extends ScreenBase {
 
     private final ClientNetworking clientNetworking;
+    private SpeechService speechService;
 
-    public LoginScreen(ClientNetworking clientNetworking) {
+    private final ServerListenerAdapter serverListener = new ServerListenerAdapter() {
+        @Override public void onConnected(ClientNetworking clientNetworking) {
+            speechService.say("Connected to server!");
+        }
+
+        @Override
+        public void onLoggedIn(ClientNetworking clientNetworking, LoginSuccessMessage loginSuccessMessage) {
+            speechService.say("Logged in to server!");
+        }
+
+        @Override public void onAccountCreated(ClientNetworking clientNetworking,
+                                               CreateAccountSuccessMessage createAccountSuccessMessage) {
+            speechService.say("Account created!");
+        }
+
+        @Override
+        public void onAccountErrorMessage(ClientNetworking clientNetworking, AccountErrorMessage accountErrorMessage) {
+            speechService.say("Account problem: " + accountErrorMessage.getErrorMessage());
+        }
+
+        @Override public void onException(ClientNetworking clientNetworking, Throwable e) {
+            speechService.say("Error: " + e.getMessage());
+        }
+    };
+
+    public LoginScreen(ClientNetworking clientNetworking, SpeechService speechService) {
         notNull(clientNetworking, "clientNetworking");
+        notNull(speechService, "speechService");
+        this.speechService = speechService;
         this.clientNetworking = clientNetworking;
+
+        clientNetworking.addListener(serverListener);
     }
 
     @Override protected void onCreate(Skin skin, TextureAtlas textureAtlas, Stage stage, Table rootUi) {
 
-    	
+        speechService.say("Welcome to Asteria.");
 
         // Create UI widgets for entering username and password.
         // See https://github.com/libgdx/libgdx/wiki/Scene2d.ui for more documentation
@@ -60,6 +95,7 @@ public final class LoginScreen extends ScreenBase {
         final TextButton loginButton = new TextButton("Login", skin);
         loginButton.addListener(new ClickListener() {
             @Override public void clicked(InputEvent event, float x, float y) {
+                speechService.say("Logging in...");
                 loginToServer(usernameField.getText(), passwordField.getText());
             }
         });
@@ -70,6 +106,9 @@ public final class LoginScreen extends ScreenBase {
                 if (event.getKeyCode() == Input.Keys.ENTER) {
                     return loginToServer(usernameField.getText(), passwordField.getText());
                 } else {
+                    if (Character.isLetterOrDigit(event.getCharacter()))  {
+                        speechService.say(usernameField.getText());
+                    }
                     return false;
                 }
 

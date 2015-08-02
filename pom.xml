@@ -24,6 +24,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <gdx.version>1.6.0</gdx.version>
+        <marytts.version>5.1.2</marytts.version>
     </properties>
 
     <dependencies>
@@ -109,6 +110,25 @@
             <version>4.0.28.Final</version>
         </dependency>
 
+
+        <!-- For speech synthesis -->
+        <dependency>
+            <groupId>de.dfki.mary</groupId>
+            <artifactId>marytts-runtime</artifactId>
+            <version>${marytts.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>de.dfki.mary</groupId>
+            <artifactId>marytts-lang-en</artifactId>
+            <version>${marytts.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>de.dfki.mary</groupId>
+            <artifactId>voice-cmu-slt-hsmm</artifactId>
+            <version>${marytts.version}</version>
+        </dependency>
+
+
     </dependencies>
 
 
@@ -128,6 +148,15 @@
         <repository>
             <id>gdx-nightlies</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </repository>
+
+        <!-- For marytts -->
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>repo.spring.io</id>
+            <url>http://repo.spring.io/libs-release-remote</url>
         </repository>
 
     </repositories>

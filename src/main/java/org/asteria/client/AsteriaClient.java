@@ -10,6 +10,7 @@ import org.asteria.client.screens.GameScreen;
 import org.asteria.client.screens.LoginScreen;
 import org.asteria.client.screens.RegisterScreen;
 import org.asteria.client.screens.ScreenBase;
+import org.asteria.client.services.SpeechService;
 import org.messageduct.client.ClientNetworking;
 import org.messageduct.client.netty.NettyClientNetworking;
 
@@ -33,12 +34,19 @@ public final class AsteriaClient extends Game {
     private TextureAtlas textureAtlas;
 
     private ClientNetworking clientNetworking = new NettyClientNetworking();
+    private SpeechService speechService = new SpeechService();
 
     public AsteriaClient(int port) {
         setPort(port);
     }
 
+
+    private void initServices() {
+        speechService.init();
+    }
+
     @Override public void create() {
+        initServices();
 
         // Load texture atlas
         textureAtlas = new TextureAtlas(DEFAULT_TEXTURE_ATLAS_PATH);
@@ -48,7 +56,7 @@ public final class AsteriaClient extends Game {
 
         // Create the screens that we have in the game
         registerScreen = addScreen(new RegisterScreen(clientNetworking));
-        loginScreen = addScreen(new LoginScreen(clientNetworking));
+        loginScreen = addScreen(new LoginScreen(clientNetworking, speechService));
         gameScreen = addScreen(new GameScreen());
 
         // Switch to login screen
